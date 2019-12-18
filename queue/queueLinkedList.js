@@ -1,6 +1,8 @@
 // Queue implementation using linked list, 
 // Kindly update index.html to include this file in script src for testing in browser
 
+const Stack = require('../stack/stackClass.js');
+
 class Node{
   constructor(value){
     this.data = value;
@@ -46,4 +48,36 @@ class Queue{
       return this.front.data;
   }
 
+  print(){
+    let tempNode = this.front;
+    let string = '';
+    while(tempNode !== null){
+      string = string + tempNode.data;
+      if(tempNode.next !== null)
+        string = string + '->'
+      tempNode = tempNode.next;
+    }
+    console.log(string);
+  }
+
+  reverse(){
+    const stack = new Stack();
+    while(!this.isEmpty())
+      stack.push(this.dequeue());
+    while(!stack.isEmpty())
+      this.enqueue(stack.pop());
+    this.print();
+  }
+
 }
+
+let queue = new Queue();
+queue.enqueue(2);
+queue.enqueue(5);
+queue.enqueue(7);
+queue.enqueue(1);
+queue.enqueue(10);
+queue.print();
+queue.reverse();
+queue.dequeue();
+queue.print();
