@@ -1,9 +1,10 @@
-// Queue implementation using array 
+// Queue implementation using circular array 
 
 class Queue{
 
   constructor(){
-    this.array = new Array(10);
+    this.array = new Array(10).fill(0);
+    this.count = 0;
     this.initialize();
   }
 
@@ -15,13 +16,9 @@ class Queue{
   enqueue(item){
     if(!this.isFull()){
       this.array[this.rear] = item;
-      this.rear++;
+      this.rear = (this.rear + 1) % this.array.length;
+      this.count++;
       return;  
-    }
-    if(this.isSpaceFull()){  // Space optimization
-      this.initialize(); 
-      this.enqueue(item);
-      return
     }
     throw new Error('Queue is full');
   }
@@ -29,7 +26,9 @@ class Queue{
   dequeue(){
     if(!this.isEmpty()){
       let value = this.array[this.front]
-      this.front++;
+      this.array[this.front] = 0;
+      this.front = (this.front + 1) % this.array.length;
+      this.count--;
       return value;
     }
     throw new Error('Queue is empty');
@@ -42,22 +41,18 @@ class Queue{
   }
 
   isEmpty(){
-    return this.front === this.rear
+    return !this.count
   }
 
   isFull(){
-    return this.rear === this.array.length;
-  }
-
-  isSpaceFull(){
-    return (this.rear === this.array.length) && (this.front === this.array.length)
+    return this.count === this.array.length;
   }
 
   print(){
     let queue = '';
-    for(let i = this.front; i < this.rear; i++){
-      queue = queue + this.array[i];
-      if(i !== this.rear - 1)
+    for(let i = this.front; i < (this.front + this.count); i++){
+      queue = queue + this.array[i % this.array.length];
+      if(i !== (this.front + this.count - 1))
         queue = queue + ' <- ';
     }
     console.log(queue);
