@@ -28,22 +28,21 @@ class Stack{
       node.next = null;
       return node.data;
     }
+    console.error('Stack is empty');
   }
 
   isEmpty(){
-    return this.top === null ? true : false;
+    return this.top === null;
   }
 
   peek(){
     return this.top.data;
   }
 
-  print(){
+  print() {
     let node = this.top;
     while(node !== null){
       console.log(node.data);
-      if(node.next !== null)
-        console.log('|');
       node = node.next;
     }
   }
