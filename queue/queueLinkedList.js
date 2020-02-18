@@ -1,7 +1,7 @@
 // Queue implementation using linked list, 
 // Kindly update index.html to include this file in script src for testing in browser
 
-const Stack = require('../stack/stackClass.js');
+const Stack = require('../stack/stackClass');
 
 class Node{
   constructor(value){
@@ -77,7 +77,9 @@ queue.enqueue(5);
 queue.enqueue(7);
 queue.enqueue(1);
 queue.enqueue(10);
+console.log('queue is ');
 queue.print();
+console.log('And reverse queue is ')
 queue.reverse();
-queue.dequeue();
-queue.print();
+// queue.dequeue();
+// queue.print();
