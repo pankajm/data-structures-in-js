@@ -25,7 +25,7 @@ class Array{
     if(index > this.length)
       throw new Error('Invalid Index');
 
-    // Need to shift all elements greater than index to one position up
+    // Need to shift all elements greater than index to one position right
 
     this.length++;
     for(let newIndex = this.length - 1; newIndex > index; newIndex--)
@@ -37,7 +37,7 @@ class Array{
     if(index >= this.length)
       throw new Error('Invalid Index');
 
-    // Need to shift all element greater than index to one place below 
+    // Need to shift all element greater than index to one position left 
     // and delete last element;
 
     const value = this.data[index];
