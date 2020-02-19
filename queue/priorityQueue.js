@@ -7,16 +7,16 @@ class PriorityQueue{
 
   enqueue(item){
     if(!this.isFull()){
-      let index = this.rear-1;
+      let index = this.rear - 1;
       while(index >= 0){
         if(item < this.array[index]){
-          this.array[index+1] = this.array[index];
+          this.array[index + 1] = this.array[index];
           index--;
         }
         else
           break;
       }
-      this.array[index+1] = item;
+      this.array[index + 1] = item;
       this.rear++;
       return;
     }
