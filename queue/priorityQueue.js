@@ -34,7 +34,7 @@ class PriorityQueue{
   }
 
   isEmpty(){
-    return this.front === this.rear;
+    return !this.front && !this.rear;
   }
 
   isFull(){
@@ -50,7 +50,7 @@ class PriorityQueue{
     for(let i = this.front; i < this.rear; i++){
       queue = queue + this.array[i];
       if(i !== (this.rear - 1))
-        queue = queue + ' <- ';
+        queue = queue + '<-';
     }
     console.log(queue);
   }

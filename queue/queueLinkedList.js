@@ -54,7 +54,7 @@ class Queue{
     while(tempNode !== null){
       string = string + tempNode.data;
       if(tempNode.next !== null)
-        string = string + '->'
+        string = string + '<-'
       tempNode = tempNode.next;
     }
     console.log(string);
