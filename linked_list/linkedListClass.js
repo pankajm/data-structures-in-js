@@ -194,12 +194,12 @@ class LinkedList{
     let q = this.head;
     if(k === 0)
       return;
-    for(let i = 0; i < k - 1; i++){
+    for(let i = 0; i < k; i++){
       q = q.next;
       if(q === null)
         throw new Error(`Linked list have less than ${k} nodes`);
     }
-    while(q.next !== null){
+    while(q !== null){
       p = p.next;
       q = q.next;
     }
