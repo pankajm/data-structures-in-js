@@ -104,6 +104,14 @@ class Tree{
     return false;
   }
 
+  searchBinaryTree(root, value){
+    if(!root)
+      return false;
+    if(root.data === value)
+      return true;
+    return this.searchBinaryTree(root.left, value) || this.searchBinaryTree(root.right, value);
+  }
+
   equals(tree1, tree2){
     if(!tree1 && !tree2)
       return true;
@@ -135,6 +143,34 @@ class Tree{
       console.log(tree.data);
     this.nodesAtDistance(k - 1, tree.left);
     this.nodesAtDistance(k - 1, tree.right);
+  }
+
+  levelOrderTraversal(tree){
+    let height = this.height(tree);
+    for(let i = 0; i <= height; i++)
+      this.nodesAtDistance(i, tree);
+  }
+
+  size(root){
+    if(!root)
+      return 0;
+    return 1 + this.size(root.left) + this.size(root.right)
+  }
+
+  calculateLeaves(root){
+    if(!root)
+      return 0;
+    if(!root.left && !root.right)
+      return 1;
+    return this.calculateLeaves(root.left) + this.calculateLeaves(root.right);
+  }
+
+  areSiblings(root, node1, node2){
+    if(!root || !root.left || !root.right)
+      return false;
+    if((root.left.data === node1 && root.right.data === node2) || (root.left.data === node2 && root.right.data === node1))
+      return true;
+    return this.areSiblings(root.left, node1, node2) || this.areSiblings(root.right, node1, node2);
   }
 }
 
@@ -181,4 +217,9 @@ tree2.insert(10);
 // tree.swapNodes(tree.root);
 // console.log('Is binary search tree '+tree.isBinarySearchTree(tree.root));
 
-tree.nodesAtDistance(2, tree.root);
+// tree.nodesAtDistance(2, tree.root);
+// tree.levelOrderTraversal(tree.root);
+console.log('size of tree is ' + tree.size(tree.root));
+console.log('total leaves of tree are ' + tree.calculateLeaves(tree.root));
+console.log('searching binary tree ' + tree.searchBinaryTree(tree.root, 7));
+console.log('siblings in binary tree ' + tree.areSiblings(tree.root, 8, 10));
