@@ -172,6 +172,17 @@ class Tree{
       return true;
     return this.areSiblings(root.left, node1, node2) || this.areSiblings(root.right, node1, node2);
   }
+
+  getAncestors(root, value){
+    if(!root)
+      return false;
+    if(root.data === value)
+      return true;
+    let isAncestor = this.getAncestors(root.left, value) || this.getAncestors(root.right, value);
+    if(isAncestor)
+      console.log(root.data); 
+    return isAncestor;
+  }
 }
 
 const tree = new Tree();
@@ -223,3 +234,4 @@ console.log('size of tree is ' + tree.size(tree.root));
 console.log('total leaves of tree are ' + tree.calculateLeaves(tree.root));
 console.log('searching binary tree ' + tree.searchBinaryTree(tree.root, 7));
 console.log('siblings in binary tree ' + tree.areSiblings(tree.root, 8, 10));
+tree.getAncestors(tree.root, 10);
