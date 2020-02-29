@@ -173,6 +173,23 @@ class Tree{
     return this.areSiblings(root.left, node1, node2) || this.areSiblings(root.right, node1, node2);
   }
 
+  areCousins(root, node1, node2){
+    return (!this.areSiblings(root, node1, node2) && (this.getLevel(root, node1, 0) === this.getLevel(root, node2, 0)));
+  }
+
+  getLevel(root, node, level){
+    if(!root)
+      return 0;
+    if(root.data === node)
+      return level;
+    
+    let l = this.getLevel(root.left, node, level + 1);
+    if(l)
+      return l;
+    return this.getLevel(root.right, node, level + 1);
+  }
+
+
   getAncestors(root, value){
     if(!root)
       return false;
@@ -235,3 +252,4 @@ console.log('total leaves of tree are ' + tree.calculateLeaves(tree.root));
 console.log('searching binary tree ' + tree.searchBinaryTree(tree.root, 7));
 console.log('siblings in binary tree ' + tree.areSiblings(tree.root, 8, 10));
 tree.getAncestors(tree.root, 10);
+console.log('Are cousins '+tree.areCousins(tree.root, 1, 9));
