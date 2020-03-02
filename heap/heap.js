@@ -53,6 +53,41 @@ class Heap{
     return removedItem;
   }
 
+  buildHeap(array){
+    let lastNonLeafIndex = Math.floor((array.length - 2) / 2);
+    for(let i = lastNonLeafIndex;  i >= 0; i--){
+      this.heapify(array, i, array.length - 1);
+    }
+  }
+
+  heapify(array, i, n){
+    let largerIndex = i;
+    if((2 * i + 1) <= n && array[largerIndex] < array[2 * i + 1])
+      largerIndex = 2 * i + 1;
+    if((2 * i + 2) <= n && array[largerIndex] < array[2 * i + 2])
+      largerIndex = 2 * i + 2;
+    if(largerIndex === i)
+      return;
+    this.swapItems(array, i, largerIndex)
+    this.heapify(array, largerIndex, n);
+  }
+
+  swapItems(array, firstIndex, secondIndex){
+    let temp = array[firstIndex];
+    array[firstIndex] = array[secondIndex];
+    array[secondIndex] = temp;
+  }
+
+  heapsort(array){
+    this.buildHeap(array);
+    let lastIndex = array.length - 1
+    for(let i = lastIndex; i >= 0; i--){
+      this.swapItems(array, 0, i)
+      this.heapify(array, 0, i - 1);
+    }
+    return array;
+  }
+
   print(){
     for(let i = 0; i < this.size; i++)
       console.log(this.array[i]);
