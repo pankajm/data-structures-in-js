@@ -5,7 +5,6 @@ class Node{
   }
 }
 
-
 const _reverse = new WeakMap(); // for private method 
 class LinkedList{
 
@@ -170,20 +169,15 @@ class LinkedList{
       size++;
     }
 
-    // changing tail and head
-
-    let node = this.head;
-    this.head = this.tail;
+    let node = nodeArray.pop();
+    this.head = node;
+    for(let i = 0; i < size - 1; i++){
+      node.next = nodeArray.pop();
+      node = node.next;
+    }
+    node.next = null;
     this.tail = node;
-
-    // changing other links
-
-    for(let i = size - 1; i > 0; i--)
-      nodeArray[i].next = nodeArray[i-1]
-    
-    nodeArray[0].next = null;
   }
-
 
   reverseByRecursion(){
     _reverse.get(this)(this.head);
