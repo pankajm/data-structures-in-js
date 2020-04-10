@@ -63,6 +63,7 @@ class Tree{
     console.log(node.data)
   }
 
+  /** Fine height of a binary tree */
   height(node){
     if(!node)
       return -1;
@@ -71,6 +72,7 @@ class Tree{
     return 1 + Math.max(this.height(node.left), this.height(node.right)) 
   }
 
+  /** Find minimum value in a Binary tree (Not BST) */
   minimum(node){
     if(!node)
       return Number.MAX_SAFE_INTEGER;
@@ -81,6 +83,7 @@ class Tree{
     return Math.min(Math.min(left,right), node.data);
   }
   
+  /** Find maximum value in a Binary tree (Not BST) */
   maximum(node){
     if(!node)
       return Number.MIN_SAFE_INTEGER;
@@ -110,6 +113,17 @@ class Tree{
     if(root.data === value)
       return true;
     return this.searchBinaryTree(root.left, value) || this.searchBinaryTree(root.right, value);
+  }
+
+  findRecursively(node, value){
+    if(!node)
+      return false;
+    if(node.data === value)
+      return true;
+    if(value < node.data)
+      return this.findRecursively(node.left, value)
+    else if (value > node.data)
+      return this.findRecursively(node.right, value);
   }
 
   equals(tree1, tree2){
@@ -248,8 +262,10 @@ tree2.insert(10);
 // tree.nodesAtDistance(2, tree.root);
 // tree.levelOrderTraversal(tree.root);
 console.log('size of tree is ' + tree.size(tree.root));
+console.log('Height of tree is ' + tree.height(tree.root));
 console.log('total leaves of tree are ' + tree.calculateLeaves(tree.root));
 console.log('searching binary tree ' + tree.searchBinaryTree(tree.root, 7));
+console.log('searching binary search tree ' + tree.findRecursively(tree.root, 7));
 console.log('siblings in binary tree ' + tree.areSiblings(tree.root, 8, 10));
 tree.getAncestors(tree.root, 10);
-console.log('Are cousins '+tree.areCousins(tree.root, 1, 9));
+console.log('Are cousins '+tree.areCousins(tree.root, 6, 10));
