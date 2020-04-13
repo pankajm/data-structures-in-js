@@ -94,6 +94,7 @@ class Tree{
     return Math.max(Math.max(left, right), node.data);
   }
 
+  /** Search BST iteratively */
   find(node){
     let current = this.root;
     while(current){
@@ -107,6 +108,7 @@ class Tree{
     return false;
   }
 
+  /** Search Binary tree  */
   searchBinaryTree(root, value){
     if(!root)
       return false;
@@ -115,6 +117,7 @@ class Tree{
     return this.searchBinaryTree(root.left, value) || this.searchBinaryTree(root.right, value);
   }
 
+  /** Search BST recursively */
   findRecursively(node, value){
     if(!node)
       return false;
@@ -126,6 +129,7 @@ class Tree{
       return this.findRecursively(node.right, value);
   }
 
+  /** Find if two BST are identical */
   equals(tree1, tree2){
     if(!tree1 && !tree2)
       return true;
@@ -150,6 +154,7 @@ class Tree{
     tree.right = temp;
   }
 
+  /** Print nodes at distance K from root */
   nodesAtDistance(k, tree){
     if(!tree || k < 0)
       return;
@@ -180,7 +185,7 @@ class Tree{
   }
 
   areSiblings(root, node1, node2){
-    if(!root || !root.left || !root.right)
+    if(!root)
       return false;
     if((root.left.data === node1 && root.right.data === node2) || (root.left.data === node2 && root.right.data === node1))
       return true;
@@ -214,6 +219,26 @@ class Tree{
       console.log(root.data); 
     return isAncestor;
   }
+
+  topView(root, level = 0, map = new Map()){
+    if(!root)
+      return;
+    if(!map.get(level)){
+      console.log(root.data);
+      map.set(level, 1);
+    }
+    this.topView(root.left, level - 1, map);
+    this.topView(root.right, level + 1, map);
+  }
+
+  bottomView(root, level = 0, map = new Map()){
+    if(!root)
+      return;
+    map.set(level, root.data);
+    this.bottomView(root.left, level - 1, map);
+    this.bottomView(root.right, level + 1, map);
+    return map;
+  }
 }
 
 const tree = new Tree();
@@ -224,6 +249,10 @@ tree.insert(6);
 tree.insert(9);
 tree.insert(8);
 tree.insert(10);
+tree.insert(15);
+tree.insert(12);
+tree.insert(11);
+tree.insert(16);
 
 const tree1 = new Tree();
 tree1.insert(7);
@@ -261,11 +290,17 @@ tree2.insert(10);
 
 // tree.nodesAtDistance(2, tree.root);
 // tree.levelOrderTraversal(tree.root);
-console.log('size of tree is ' + tree.size(tree.root));
-console.log('Height of tree is ' + tree.height(tree.root));
-console.log('total leaves of tree are ' + tree.calculateLeaves(tree.root));
-console.log('searching binary tree ' + tree.searchBinaryTree(tree.root, 7));
-console.log('searching binary search tree ' + tree.findRecursively(tree.root, 7));
-console.log('siblings in binary tree ' + tree.areSiblings(tree.root, 8, 10));
-tree.getAncestors(tree.root, 10);
-console.log('Are cousins '+tree.areCousins(tree.root, 6, 10));
+// console.log('size of tree is ' + tree.size(tree.root));
+// console.log('Height of tree is ' + tree.height(tree.root));
+// console.log('total leaves of tree are ' + tree.calculateLeaves(tree.root));
+// console.log('searching binary tree ' + tree.searchBinaryTree(tree.root, 7));
+// console.log('searching binary search tree ' + tree.findRecursively(tree.root, 7));
+// console.log('siblings in binary tree ' + tree.areSiblings(tree.root, 8, 10));
+// tree.getAncestors(tree.root, 10);
+// console.log('Are cousins '+tree.areCousins(tree.root, 6, 10));
+// console.log('Top view ');
+// tree.topView(tree.root);
+console.log('bottom view ');
+let bottomView = tree.bottomView(tree.root);
+bottomView.forEach((item) => console.log(item));
+
